@@ -29,7 +29,7 @@ Included:
 - Medication  
 - Test Results  
 - Billing Amount  
-- Length of Stay (engineered feature)
+- Length of Stay
 
 ### Models Implemented  
 1. **Decision Tree Classifier**  
@@ -70,16 +70,15 @@ The **Elbow Method** was used to select k = 3 clusters.
 Clusters were projected into 2D using PCA for interpretability.
 
 ### Cluster Characteristics  
-(Your notebook findings suggest the following general patterns — adjust based on your actual output.)
 
 - **Cluster 0:**  
-  Higher age range, higher billing amounts, longer stays — indicates more complex medical cases.
+  This cluster has the highest counts across all medical conditions. It may represent the “general” patient population.
 
 - **Cluster 1:**  
-  Younger patients, low billing, shorter stays — routine or minor visits.
+  Shows consistently lower counts for each condition compared to Cluster 0. This cluster may represent a smaller or less medically complex patient segment.
 
 - **Cluster 2:**  
-  Middle-aged group with moderate billing — mixed elective and urgent cases.
+  Has medical condition counts similar to Cluster 1, but it shows the **highest Diabetes count** among all clusters.  
 
 ### Practical Value  
 - Helps classify patient severity levels  
@@ -119,13 +118,6 @@ Strong rules were filtered using:
 - Confidence ≥ 0.5  
 - Lift ≥ 1.05  
 
-### Example Insights  
-(Replace with rules from your output.)
-
-- Emergency admissions combined with certain insurance providers show a higher likelihood of abnormal test results.  
-- Certain medications consistently appear alongside specific medical conditions.  
-- Admission type and test result combinations reveal patterns useful for clinical decision-making.
-
 ### Practical Value  
 These rules can support:
 
@@ -148,23 +140,18 @@ The combination of classification, clustering, and association rule mining provi
 
 ## 6. Challenges & Solutions
 
-### 1. Sparse Categorical Data  
 Large numbers of medication, provider, and hospital categories caused sparsity in Apriori.  
 **Solution:** Reduced categorical columns and lowered minimum support.
-
-### 2. Strict Rule Thresholds Leading to Zero Rules  
+ 
 Initial filters eliminated all rules.  
 **Solution:** Relaxed support, confidence, and lift thresholds; used fallback plotting.
 
-### 3. Class Imbalance  
 Diabetes was not the majority class.  
 **Solution:** F1 and AUC used instead of accuracy.
 
-### 4. Cluster Interpretability  
 Clusters are unlabeled.  
 **Solution:** Used summary statistics and crosstabs to interpret groups.
 
-### 5. Ensuring Consistent Preprocessing  
 Mixed categorical/numerical features required careful handling.  
 **Solution:** Unified ColumnTransformer + Pipeline.
 
